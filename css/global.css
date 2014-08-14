@@ -442,6 +442,11 @@ only screen and (min-device-pixel-ratio: 1.5) {
     display: inline-block;
 }
 
+.about-image-container img {
+    width: inherit;
+    height: inherit;
+}
+
 .about-title {
 	text-align: center;
 }
