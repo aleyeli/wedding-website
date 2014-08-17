@@ -29,8 +29,6 @@ $(window).load(function () {
     });
 });
 
-$('.popver-to-activate').popover();
-
 
 (function ($) {
      "use strict";
