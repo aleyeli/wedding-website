@@ -437,10 +437,6 @@ only screen and (min-device-pixel-ratio: 1.5) {
     text-align: center;
 }
 
-.testimony-img {
-    position: 50%
-}
-
 .modal-title {
     background-color: transparent;
 }
