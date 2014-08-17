@@ -433,18 +433,21 @@ only screen and (min-device-pixel-ratio: 1.5) {
     display: inline-block;
 }
 
-.about-image-container {
-    padding: 70px;
-    width: 190px;
-    height: 230px;
-    background: #fff;
-    border-radius: 50%;
-    display: inline-block;
+.testimony-img p {
+    
 }
 
-.about-image-container img {
-    width: inherit;
-    height: inherit;
+.modal-title {
+    background-color: transparent;
+}
+
+.modal-content {
+    background-color: transparent;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
 }
 
 .about-title {
