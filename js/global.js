@@ -37,7 +37,8 @@ $(window).load(function () {
 
     // date Format: mm/dd/yyyy
     $('.countdown').downCount({
-        date: '10/05/2014'
+        date: '10/05/2014 17:30:00',
+        offset: -3
     });
 
     // Dropdown hover
