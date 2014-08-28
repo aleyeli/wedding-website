@@ -141,6 +141,7 @@ $(window).load(function () {
                 data: JSON.stringify(obj),
                 success: function(){
                     showMessage('Te esperamos!', true);
+                    $('.p-input').unbind();
                 },
                 error: function(){
                     showMessage("Nuestra paloma mensajera est&aacute; de paro en este momento. Vuelve a intentarlo mas tarde.", false);
@@ -166,9 +167,37 @@ $(window).load(function () {
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
     };
 
+    var addVideo = function(){
+        var size = getSize();
+        var iframe = '<iframe style="border: none; width:'+size[0]+'px; height:'+size[1]+'px" frameborder="0" src="http://www.youtube.com/embed/gardzZ-c1W4?autoplay=1&amp;vq=hd1080&amp;rel=0" class="video"></iframe>';
+        $('.video').append(iframe);
+        $('.video').height(size[1]);
+    };
 
+    var getSize = function() {
+        var width = $(window).width();
+        var height = width*0.7;
+        if (height > $(window).height()) {
+            height = $(window).height();
+        }
+        return [width, height];
+    };
+
+    var resizeAll = function(){
+
+        var size = getSize();
+
+        // reiseze video
+        $('.video iframe').width(size[0]).height(size[1]);
+        $('.video').height(size[1]);
+
+    };
+
+    $(window).resize(resizeAll);
     $('.p-input').keyup(onInputKeyUp);
     $('#confirm-btn').click(iWillAssist);
+    addVideo();
+    resizeAll();
 
 })(jQuery);
 
