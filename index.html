@@ -139,14 +139,14 @@
                                 <h2>Confirm&aacute; tu asistencia</h2>
                                 <form action="">
                                     <div class="person first" index="1">
-                                        <input class="subscribe-box" type="text" placeholder="C&oacute;d. de confirmaci&oacute;n" value="" name="confcode"/>
-                                        <input class="subscribe-box" type="text" placeholder="Nombre" value="" name="name[0]"/>
-                                        <input class="subscribe-box" type="email" placeholder="Email" value="" name="email[0]"/>
+                                        <input class="subscribe-box c-input" type="text" placeholder="C&oacute;d. de confirmaci&oacute;n" value="" name="confcode"/>
+                                        <input class="subscribe-box p-input" type="text" placeholder="Nombre" value="" name="name[0]"/>
+                                        <input class="subscribe-box p-input" type="email" placeholder="Email" value="" name="email[0]"/>
                                     </div>
                                 </form>
-                                <div id="message"></div>
-                                <input type="submit" onclick="confirm();" value="Confirmar" id="submit" class="subscribe-btn">
+                                <input type="submit" text="Confirmar" class="subscribe-btn" id="confirm-btn"></button>
                             </div>
+                            <div id="message"></div>
                         </div>
                     </div>
                 </div>
@@ -296,6 +296,7 @@
         <script src="js/retina-1.1.0.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
+        <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
         <script src="js/global.js"></script>
     </body>
 </html>

@@ -37,7 +37,7 @@ $(window).load(function () {
 
     // date Format: mm/dd/yyyy
     $('.countdown').downCount({
-        date: '10/05/2014 17:30:00',
+        date: '10/05/2014 16:30:00',
         offset: -3
     });
 
@@ -72,73 +72,12 @@ $(window).load(function () {
         navigationText: false
     });
 
-    // Subscribe
-     $('#submit').click(function () {
-
-        var name = $('input[name=name]');
-        var email = $('input[name=email]');
-        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-        var emailVal = email.val();
-        var website = $('input[name=website]');
-        var comment = $('textarea[name=comment]');
-
-        //validate
-        if (name.val() == '') {
-            name.addClass('hightlight');
-            return false;
-        } else name.removeClass('hightlight');
-
-        if (email.val() == '') {
-            email.addClass('hightlight');
-            email.attr('placeholder', 'Email required');
-            return false;
-        } else email.removeClass('hightlight');
-
-        if (!emailReg.test(emailVal)) {
-            email.addClass('hightlight');
-            return false;
-        } else email.removeClass('hightlight');
-
-        if (comment.val() == '') {
-            comment.addClass('hightlight');
-            return false;
-        } else comment.removeClass('hightlight');
-
-        var data = 'name=' + name.val() + '&email=' + email.val() + '&website=' +
-		website.val() + '&comment=' + encodeURIComponent(comment.val());
-
-        //disabled all the text fields
-        $('.text').attr('disabled', 'true');
-
-        $('#loading').show();
-
-        $.ajax({
-            //this is the php file that processes the data and send mail
-            url: "subscribe.php",
-            type: "GET",
-            data: data,
-            cache: false,
-
-            //success
-            success: function (html) {
-                //if process.php returned 1/true (send mail success)
-                if (html == 1) {
-                    $('.form').hide();
-                    $('.done').fadeIn('slow');
-
-                    //if process.php returned 0/false (send mail failed)
-                } else alert('Sorry, unexpected error. Please try again later.');
-            }
-        });
-        //cancel the submit button default behaviours
-        return false;
-    });
-
     var showAnotherPerson = function(index){
-        var $newPerson = '<div class="person empty" style="display:none;" onkeyup="" index="'+index+'"><div class="separator"></div><input class="subscribe-box" type="text" placeholder="Otro nombre" value="" name="name['+index+']"/><input type="hidden" name="email['+index+']" value=""/></div>';
+        var $newPerson = '<div class="person empty" style="display:none;" onkeyup="" index="'+index+'"><div class="separator"></div><input class="subscribe-box p-input" type="text" placeholder="Otro nombre" value="" name="name['+index+']"/><input type="hidden" name="email['+index+']" value=""/></div>';
         $('form').append($newPerson);
         $('form .person:last-child').fadeIn();
-        $('input').unbind().keyup(onInputKeyUp);
+        $('.p-input').unbind().keyup(onInputKeyUp);
+        $('#confirm-btn').unbind().click(iWillAssist);
     };
 
     var onInputKeyUp = function(event){
@@ -147,11 +86,10 @@ $(window).load(function () {
         var nextIndex = parseInt($person.attr('index'))+1;
 
         if ($person.hasClass('first')) {
-            var name = $person.find('input')[1].value;
-            var email = $person.find('input')[2].value;
+            var name = $person.find('.p-input')[0].value;
+            var email = $person.find('.p-input')[1].value;
             
-            if (name !== '' && email !== '') {
-                console.log(name + ' ' + email);
+            if (name !== 'Nombre' && email !== 'Email') {
                 if ($('.person[index='+nextIndex+']').length == 0) {
                     showAnotherPerson(nextIndex);
                 }
@@ -162,7 +100,7 @@ $(window).load(function () {
             }
         }
         else {
-            var name = $person.find('input')[1].value;
+            var name = $person.find('input')[0].value;
             if (name !== '') {
                 $person.removeClass('empty');
                 if ($('.person[index='+nextIndex+']').length == 0) {
@@ -177,51 +115,60 @@ $(window).load(function () {
         }
     };
 
-    var confirm = function(){
+    var iWillAssist = function() {
 
-        $('button').hide();
+        $('#confirm-btn').hide();
 
-        var arr = [];
-        var mainPersonName = $('.person:first input:first').val();
-        $('form .person').each(function(index){
-            if ($(this).find('input[name^=name]').val() !== '') {
-                arr.push({
-                    name: $(this).find('input[name^=name]').val(),
-                    email: $(this).find('input[name^=email]').val(),
-                    related: mainPersonName
-                });
-            }
-        });
-        var obj = {toma:arr};
+        var confirmhash = CryptoJS.MD5($('.c-input').val());
 
-        $.ajax({
-            type: 'post',
-            url: 'http://app.konacloud.io/api/airuleguy/casamiento/mr_confirmacion',
-            data: JSON.stringify(obj),
-            success: function(){
-                showMessage('Te esperamos!', true);
-            },
-            error: function(){
-                showMessage("Nuestra paloma mensajera est&aacute; de paro en este momento. Vuelve a intentarlo mas tarde.", false);
-            }
-        });
+        if (confirmhash == '32d4cd6bdd1bd5900eee8ce3c51ea4ca') {
+            var arr = [];
+            var mainPersonName = $('.p-input:first').val();
+            $('form .person').each(function(index){
+                if ($(this).find('input[name^=name]').val() !== '') {
+                    arr.push({
+                        name: $(this).find('input[name^=name]').val(),
+                        email: $(this).find('input[name^=email]').val(),
+                        related: mainPersonName
+                    });
+                }
+            });
+            var obj = {toma:arr};
+
+            $.ajax({
+                type: 'post',
+                url: 'http://app.konacloud.io/api/airuleguy/casamiento/mr_confirmacion',
+                data: JSON.stringify(obj),
+                success: function(){
+                    showMessage('Te esperamos!', true);
+                },
+                error: function(){
+                    showMessage("Nuestra paloma mensajera est&aacute; de paro en este momento. Vuelve a intentarlo mas tarde.", false);
+                }
+            });
+        } else {
+            showMessage("Ese no es el c&oacute;digo de confirmaci&oacute;n correcto...", false);
+            $('.c-input').val('').focus();
+        }
     };
 
     var showMessage = function(msg, ok) {
         var fn = null;
         if (!ok) {
-            $('button').show();
             fn = function(){
                 setTimeout(function(){
                     $('#message').fadeOut();
                 }, 3500);
             }
+            $('#confirm-btn').show();
         }
         $('#message').html(msg).removeClass().addClass(ok ? 'good' : 'bad').fadeIn(fn);
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
     };
 
-    $('input').keyup(onInputKeyUp);
+
+    $('.p-input').keyup(onInputKeyUp);
+    $('#confirm-btn').click(iWillAssist);
 
 })(jQuery);
 
