@@ -463,6 +463,10 @@ only screen and (min-device-pixel-ratio: 1.5) {
     font-size: 50px;
 }
 
+.modal-dialog .close {
+	color: #fff;
+}
+
 
 /* Slider */
 .owl-carousel {
