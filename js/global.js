@@ -175,10 +175,10 @@ $(window).load(function () {
     };
 
     var getSize = function() {
-        var width = $(window).width();
+        var width = $('#countdown_dashboard .container').width();
         var height = width*0.7;
-        if (height > $(window).height()) {
-            height = $(window).height();
+        if (height > $('#countdown_dashboard .container').height()) {
+            height = $('#countdown_dashboard .container').height();
         }
         return [width, height];
     };
