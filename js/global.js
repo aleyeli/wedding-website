@@ -169,7 +169,7 @@ $(window).load(function () {
 
     var addVideo = function(){
         var size = getSize();
-        var iframe = '<iframe style="border: none; width:'+size[0]+'px; height:'+size[1]+'px" frameborder="0" src="http://www.youtube.com/embed/gardzZ-c1W4?autoplay=1&amp;vq=hd1080&amp;rel=0" class="video"></iframe>';
+        var iframe = '<iframe style="border: none; width:'+size[0]+'px; height:'+size[1]+'px" frameborder="0" src="//www.youtube.com/embed/an0IVEm00Zo?rel=0"></iframe>';
         $('.video').append(iframe);
         $('.video').height(size[1]);
     };
